@@ -1,0 +1,39 @@
+
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>{{ product.name }} | 新潟マーケット</title>
+</head>
+<body>
+    <h1>{{ product.name }}</h1>
+    <img src="/static/{{product.image }}" style="width:300px;">
+    <p>{{ product.description }}</p>
+    <h2 id="price">{{ product.price }}円</h2>
+<form action="/add_to_cart/{{ product_id }}" method="POST">
+    <label>数量：</label>
+        <select id="quantity" name="quantity">
+            <option value="1">1個</option>
+            <option value="2">2個</option>
+            <option value="3">3個</option>
+            <option value="4">4個</option>
+            <option value="5">5個</option>
+        </select>
+        
+    <p>合計：<span id="total">{{ product.price }}</span>円</p>
+    <button type="submit">カートに追加</button>
+
+</form>
+    <br><br>
+    <a href="/">← トップに戻る</a>
+    <script>
+        const price = Number("{{ product.price }}");
+        const quantitySelect = document.getElementById("quantity");
+        const total = document.getElementById("total");
+
+        quantitySelect.addEventListener("change", function() {
+            total.textContent = price * quantitySelect.value;
+        });
+    </script>
+</body>
+</html>
